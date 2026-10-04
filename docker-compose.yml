@@ -1,0 +1,14 @@
+version: '3'
+services:
+  airflow:
+    image: apache/airflow:2.9.0
+    environment:
+      - AIRFLOW__CORE__LOAD_EXAMPLES=False
+      - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=sqlite:////opt/airflow/airflow.db
+      - DATABASE_URL=postgresql://neondb_owner:npg_uHJ2kjNGF8UV@ep-silent-dream-b4fk2b6s-pooler.c-6.us-east-2.aws.neon.tech/neondb?sslmode=require&channel_binding=require
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - .:/opt/airflow/pipeline
+    ports:
+      - "8080:8080"
+    command: standalone
